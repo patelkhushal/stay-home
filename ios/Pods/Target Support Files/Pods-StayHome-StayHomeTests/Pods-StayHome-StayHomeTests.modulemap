@@ -1,6 +1,0 @@
-module Pods_StayHome_StayHomeTests {
-  umbrella header "Pods-StayHome-StayHomeTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
