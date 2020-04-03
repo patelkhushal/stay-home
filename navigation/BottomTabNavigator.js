@@ -55,7 +55,7 @@ export default function App() {
               name="newsfeed"
               component={newsfeed}
               options={{
-                tabBarLabel: 'News Feed',
+                tabBarLabel: 'DEEP Feed',
                 tabBarIcon: ({ }) => (
                   <Icon name="info" color={'red'} size={20} />
                 ),
