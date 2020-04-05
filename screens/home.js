@@ -1,94 +1,188 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon2 from 'react-native-vector-icons/FontAwesome5';
+import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import Geolocation from '@react-native-community/geolocation';
-Geolocation.getCurrentPosition(info => (info));
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import moment from "moment";
-
-import { Ionicons } from '@expo/vector-icons';
-
-const TabIcon = (props) => (
-    <Ionicons
-        name={'md-home'}
-        size={35}
-        color={props.focused ? 'grey' : 'darkgrey'}
-    />
-)
-
+Geolocation.getCurrentPosition((info) => info);
+import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import {BarChart, XAxis} from 'react-native-svg-charts';
+import moment from 'moment';
 // console.log(moment([2019, 3, 29, 21, 00]).fromNow())
-
 export default class home extends React.Component {
-
-    static navigationOptions = {
-        tabBarIcon: TabIcon
-    };
-
-    state = {
-        location: null,
-        fill: null,
-    };
-
-    componentDidMount() {
-        var currtime = moment(moment.utc().subtract(4, 'hours').format("YYYY-MM-DD HH:mm:ss.SSS"))
-        var end = moment("2020-04-02 20:48:14.994")
-        var duration = moment.duration(currtime.diff(end));
-        var hours = duration.asHours();
-        setInterval(() => (
-
-            this.setState(
-                { fill: parseInt(hours) % 24 }
-            )
-        ), 1000);
-    }
-
-    findCoordinates = () => {
-        Geolocation.getCurrentPosition(
-            position => {
-                const location = JSON.stringify(position);
-                this.setState({ location });
-            },
-            error => Alert.alert(error.message),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-        );
-    };
-    render() {
-        return (
-
-            <View style={styles.container}>
-                < Text h1> You have 1000 Points. Stay Home to earn more.</Text >
-                <Text h1>Heading 1</Text>
-                <Text></Text>
-                <Text></Text>
-                <Text></Text>
-                <Text></Text>
-                <Text></Text>
-                {this.findCoordinates()}
-                {/* <Text style={styles.welcome}>Find My Coords?</Text>
-          <Text>Location: {this.state.location}</Text> */}
-                <AnimatedCircularProgress
-                    size={200}
-                    width={20}
-                    fill={this.state.fill}
-                    tintColor="#00e0ff"
-                    backgroundColor="#3d5875">
-                    {
-                        (fill) => (
-                            <Text>
-                                {this.state.fill}
-                            </Text>
-                        )
-                    }
-                </AnimatedCircularProgress>
-                <Text>hrs inside the home today. Good Job</Text>
-            </View>
-        );
-    }
+  state = {
+    location: null,
+    fill: null,
+  };
+  componentDidMount() {
+    var currtime = moment(
+      moment.utc().subtract(4, 'hours').format('YYYY-MM-DD HH:mm:ss.SSS'),
+    );
+    var end = moment('2020-04-04 00:00:00.00');
+    var duration = moment.duration(currtime.diff(end));
+    var hours = duration.asHours();
+    // setInterval(() => this.setState({fill: parseInt((parseInt(hours) / 24) * 100)}), 100);
+  }
+  findCoordinates = () => {
+    Geolocation.getCurrentPosition(
+      (position) => {
+        const location = JSON.stringify(position);
+        this.setState({location});
+      },
+      (error) => Alert.alert(error.message),
+      // {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
+  };
+  render() {
+    const data = [15, 10, 16, 8, 5, 20, 15];
+    return (
+      <View style={styles.mainContainer}>
+        {this.findCoordinates()}
+        <Text
+          style={{
+            paddingBottom: 15,
+            textAlign: 'center',
+            color: 'darkslategray',
+            fontWeight: 'bold',
+            fontSize: 15,
+          }}>
+          Hours stayed inside home today
+        </Text>
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingBottom: 50,
+          }}>
+          <AnimatedCircularProgress
+            size={225}
+            width={25}
+            fill={parseInt((23 / 24) * 100)}
+            // fill={this.state.fill}
+            tintColor="teal"
+            rotation={-90}
+            backgroundColor="silver">
+            {() => (
+              <Text style={{fontWeight: 'bold', color: 'teal', fontSize: 25}}>
+                {/* {parseInt((this.state.fill / 100) * 24)} */}
+                {23} hrs
+              </Text>
+            )}
+          </AnimatedCircularProgress>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'space-around',
+            flexDirection: 'row',
+          }}>
+          <View style={{flexDirection: 'column'}}>
+            <AnimatedCircularProgress
+              size={100}
+              width={10}
+              fill={50}
+              tintColor="teal"
+              rotation={-90}
+              backgroundColor="silver">
+              {() => (
+                <Text style={{fontWeight: 'bold', color: 'teal', fontSize: 20}}>
+                  {7} <Icon2 name="fire" color={'teal'} size={20} />
+                </Text>
+              )}
+            </AnimatedCircularProgress>
+            <Text
+              style={{
+                paddingTop: 10,
+                paddingLeft: 28,
+                fontWeight: 'bold',
+                color: 'darkslategray',
+              }}>
+              Streak
+            </Text>
+          </View>
+          <View style={{flexDirection: 'column'}}>
+            <AnimatedCircularProgress
+              size={100}
+              width={10}
+              fill={95}
+              tintColor="teal"
+              rotation={-90}
+              backgroundColor="silver">
+              {() => (
+                <Text style={{fontWeight: 'bold', color: 'teal', fontSize: 15}}>
+                  <Icon3 name="today" color={'teal'} size={25} />
+                </Text>
+              )}
+            </AnimatedCircularProgress>
+            <Text
+              style={{
+                paddingTop: 10,
+                paddingLeft: 4,
+                fontWeight: 'bold',
+                color: 'darkslategray',
+              }}>
+              Earned Today
+            </Text>
+          </View>
+          <View style={{flexDirection: 'column'}}>
+            <AnimatedCircularProgress
+              size={100}
+              width={10}
+              fill={85}
+              tintColor="teal"
+              rotation={-90}
+              backgroundColor="silver">
+              {() => (
+                <Text style={{fontWeight: 'bold', color: 'teal', fontSize: 15}}>
+                  <Icon name="star-half" color={'teal'} size={30} />
+                </Text>
+              )}
+            </AnimatedCircularProgress>
+            <Text
+              style={{
+                paddingTop: 10,
+                paddingLeft: 4,
+                fontWeight: 'bold',
+                color: 'darkslategray',
+              }}>
+              Next Reward
+            </Text>
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: 'column',
+          }}>
+          </View>
+        <XAxis
+          style={{marginHorizontal: -10}}
+          data={data}
+          formatLabel={(value, index) => data[index]}
+          contentInset={{left: 40, right: 50}}
+          svg={{fontSize: 13, fill: 'darkslategray'}}
+        />
+        <BarChart
+          style={{flex: 1}}
+          data={data}
+          contentInset={{top: 10, bottom: 10, left: 5, right: 5}}
+          svg={{fill: '#3A8F98'}}
+        />
+        <Text style={styles.text}>Hours stayed at home in last 7 days</Text>
+      </View>
+    );
+  }
 }
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+  mainContainer: {
+    flex: 1,
+    paddingTop: 80,
+  },
+  text: {
+    paddingTop: 5,
+    paddingBottom: 15,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'darkslategray',
+    backgroundColor: 'white',
+  },
 });
