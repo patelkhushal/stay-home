@@ -29,16 +29,6 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="newsfeed"
-          component={newsfeed}
-          options={{
-            tabBarLabel: 'News Feed',
-            tabBarIcon: ({}) => (
-              <Icon name="list-alt" color={'teal'} size={25} />
-            ),
-          }}
-        />
-        <Tab.Screen
           name="rewards"
           component={rewards}
           options={{
