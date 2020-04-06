@@ -7,6 +7,7 @@ import rewards from '../screens/rewards';
 import home from '../screens/home';
 import newsfeed from '../screens/newsfeed';
 import user from '../screens/user';
+import login from '../screens/user';
 const Tab = createBottomTabNavigator();
 export default function App() {
   return (
