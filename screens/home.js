@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
+import {Header} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
@@ -37,9 +38,18 @@ export default class home extends React.Component {
     const data = [15, 10, 16, 8, 5, 20, 15];
     return (
       <View style={styles.mainContainer}>
+        <Header
+          backgroundColor="teal"
+          centerComponent={{
+            text: 'StayHome',
+            style: {color: '#fff', fontSize: 20},
+          }}
+          rightComponent={{icon: 'home', color: '#fff'}}
+        />
         {this.findCoordinates()}
         <Text
           style={{
+            paddingTop: 18,
             paddingBottom: 15,
             textAlign: 'center',
             color: 'darkslategray',
@@ -52,12 +62,12 @@ export default class home extends React.Component {
           style={{
             alignItems: 'center',
             justifyContent: 'center',
-            paddingBottom: 50,
+            paddingBottom: 30,
           }}>
           <AnimatedCircularProgress
             size={225}
             width={25}
-            fill={parseInt((23 / 24) * 100)}
+            fill={parseInt((21 / 24) * 100)}
             // fill={this.state.fill}
             tintColor="teal"
             rotation={-90}
@@ -65,7 +75,7 @@ export default class home extends React.Component {
             {() => (
               <Text style={{fontWeight: 'bold', color: 'teal', fontSize: 25}}>
                 {/* {parseInt((this.state.fill / 100) * 24)} */}
-                {23} hrs
+                {21} hrs
               </Text>
             )}
           </AnimatedCircularProgress>
@@ -104,7 +114,7 @@ export default class home extends React.Component {
             <AnimatedCircularProgress
               size={100}
               width={10}
-              fill={95}
+              fill={87}
               tintColor="teal"
               rotation={-90}
               backgroundColor="silver">
@@ -152,10 +162,9 @@ export default class home extends React.Component {
         <View
           style={{
             flexDirection: 'column',
-          }}>
-          </View>
+          }}></View>
         <XAxis
-          style={{marginHorizontal: -10}}
+          style={{marginHorizontal: -10, paddingTop: 50}}
           data={data}
           formatLabel={(value, index) => data[index]}
           contentInset={{left: 40, right: 50}}
@@ -175,7 +184,7 @@ export default class home extends React.Component {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    paddingTop: 80,
+    // paddingTop: 80,
   },
   text: {
     paddingTop: 5,
